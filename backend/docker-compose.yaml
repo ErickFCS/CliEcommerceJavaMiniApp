@@ -1,0 +1,13 @@
+services:
+  Database:
+    container_name: mySqlDatabase
+    image: mysql:8.0-debian
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - mySqlData:/var/lib/mysql
+volumes:
+  mySqlData:
+    name: mySqlData
