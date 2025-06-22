@@ -25,6 +25,10 @@ public class ProductService {
         return repo.findById(id).orElse(null);
     }
 
+    public List<Products> getByNameOrDescription(String nameOrDescription) {
+        return repo.findByNameOrDescription(nameOrDescription);
+    }
+
     public Products create(Products product) {
         return repo.save(product);
     }

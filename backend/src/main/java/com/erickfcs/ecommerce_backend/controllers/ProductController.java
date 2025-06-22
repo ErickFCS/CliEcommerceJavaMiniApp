@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.erickfcs.ecommerce_backend.models.Products;
@@ -29,6 +30,14 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<List<Products>> getProducts() {
         return ResponseEntity.ok(productService.getAll());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Products>> searchProducts(@RequestParam String keyword) {
+        if (keyword == null || keyword.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(productService.getByNameOrDescription(keyword));
     }
 
     @GetMapping("/{id}")
