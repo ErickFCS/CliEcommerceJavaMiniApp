@@ -10,7 +10,7 @@ import com.erickfcs.ecommerce_backend.repositories.OrderRepository;
 
 @Service
 public class OrderService {
-    final OrderRepository repo;
+    private final OrderRepository repo;
 
     @Autowired
     OrderService(OrderRepository repo) {
@@ -19,6 +19,10 @@ public class OrderService {
 
     public List<Orders> getAll() {
         return repo.findAll();
+    }
+
+    public List<Orders> getByUserId(Integer userId) {
+        return repo.findByUserId(userId);
     }
 
     public Orders getById(Integer id) {

@@ -31,6 +31,14 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getAll());
     }
 
+    @GetMapping("/{id}/users")
+    public ResponseEntity<List<Orders>> getOrderByUserId(@PathVariable Integer id) {
+        if (id == null || id <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(orderService.getByUserId(id));
+    }
+    
     @GetMapping("/{id}")
     public ResponseEntity<Orders> getOrderById(@PathVariable Integer id) {
         if (id == null || id <= 0) {

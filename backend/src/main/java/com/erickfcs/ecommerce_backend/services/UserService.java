@@ -10,7 +10,7 @@ import com.erickfcs.ecommerce_backend.repositories.UserRepository;
 
 @Service
 public class UserService {
-    final UserRepository repo;
+    private final UserRepository repo;
 
     @Autowired
     public UserService(UserRepository repo) {
