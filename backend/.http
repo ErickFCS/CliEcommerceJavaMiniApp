@@ -1,10 +1,16 @@
 @url = http://localhost:3000/api
 @id = 1
+
 ###
+
 GET {{url}}/users HTTP/1.1
+
 ###
+
 GET {{url}}/users/{{id}} HTTP/1.1
+
 ###
+
 POST {{url}}/users HTTP/1.1
 Content-Type: application/json
 
@@ -13,3 +19,142 @@ Content-Type: application/json
     "password": "password",
     "role": "user"
 }
+
+###
+
+PUT {{url}}/users/{{id}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "updateduser",
+    "password": "newpassword",
+    "role": "admin"
+}
+
+###
+
+DELETE {{url}}/users/{{id}} HTTP/1.1
+
+###
+
+###
+
+GET {{url}}/products HTTP/1.1
+
+###
+
+GET {{url}}/products/search?keyword=ph HTTP/1.1
+
+###
+
+GET {{url}}/products/{{id}} HTTP/1.1
+
+###
+
+POST {{url}}/products HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Table",
+    "description": "wood and metal",
+    "price": "140.00",
+    "category": "Household",
+    "imageUrl": "https://example.com/image.jpg",
+    "stock": "3"
+}
+
+###
+
+PUT {{url}}/products/{{id}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "updateduser",
+    "password": "newpassword",
+    "role": "admin"
+}
+
+###
+
+DELETE {{url}}/products/{{id}} HTTP/1.1
+
+###
+
+###
+
+GET {{url}}/orders HTTP/1.1
+
+###
+
+GET {{url}}/orders/{{id}}/users HTTP/1.1
+
+###
+
+GET {{url}}/orders/{{id}} HTTP/1.1
+
+###
+
+POST {{url}}/orders HTTP/1.1
+Content-Type: application/json
+
+{
+    "userId": "1",
+    "status": "inUse"
+}
+
+###
+
+PUT {{url}}/orders/{{id}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "updateduser",
+    "password": "newpassword",
+    "role": "admin"
+}
+
+###
+
+DELETE {{url}}/orders/{{id}} HTTP/1.1
+
+###
+
+###
+
+GET {{url}}/orderItems HTTP/1.1
+
+###
+
+GET {{url}}/orderItems/3/products HTTP/1.1
+
+###
+
+GET {{url}}/orderItems/{{id}} HTTP/1.1
+
+###
+
+POST {{url}}/orderItems HTTP/1.1
+Content-Type: application/json
+
+{
+    "orderId": "2",
+    "productId": "2",
+    "quantity": "2"
+}
+
+###
+
+PUT {{url}}/orderItems/{{id}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "updateduser",
+    "password": "newpassword",
+    "role": "admin"
+}
+
+###
+
+DELETE {{url}}/orderItems/{{id}} HTTP/1.1
+
+###
