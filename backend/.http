@@ -137,7 +137,7 @@ POST {{url}}/orderItems HTTP/1.1
 Content-Type: application/json
 
 {
-    "orderId": "2",
+    "orderId": "1",
     "productId": "2",
     "quantity": "2"
 }

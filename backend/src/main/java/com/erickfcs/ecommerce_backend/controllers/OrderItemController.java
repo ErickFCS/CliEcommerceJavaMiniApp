@@ -13,31 +13,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.erickfcs.ecommerce_backend.datatransferobjects.OrderItemRequest;
 import com.erickfcs.ecommerce_backend.models.OrderItems;
+import com.erickfcs.ecommerce_backend.models.Orders;
+import com.erickfcs.ecommerce_backend.models.Products;
 import com.erickfcs.ecommerce_backend.services.OrderItemService;
-import com.erickfcs.ecommerce_backend.summaries.OrderItemsSummary;
+import com.erickfcs.ecommerce_backend.services.OrderService;
+import com.erickfcs.ecommerce_backend.services.ProductService;
 
 @RestController
 @RequestMapping("/api/orderItems")
 public class OrderItemController {
     final private OrderItemService orderItemService;
+    final private ProductService productService;
+    final private OrderService orderService;
 
     @Autowired
-    public OrderItemController(OrderItemService orderItemService) {
+    public OrderItemController(OrderItemService orderItemService, ProductService productService, OrderService orderService) {
         this.orderItemService = orderItemService;
+        this.productService = productService;
+        this.orderService = orderService;
     }
 
     @GetMapping
     public ResponseEntity<List<OrderItems>> getOrderItems() {
         return ResponseEntity.ok(orderItemService.getAll());
-    }
-
-    @GetMapping("/{orderId}/products")
-    public ResponseEntity<List<OrderItemsSummary>> getOrderItemsByOrderId(@PathVariable Integer orderId) {
-        if (orderId == null || orderId <= 0) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(orderItemService.getByOrderId(orderId));
     }
 
     @GetMapping("/{id}")
@@ -49,16 +49,28 @@ public class OrderItemController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderItems> createOrderItem(@RequestBody OrderItems order) {
-        return ResponseEntity.ok(orderItemService.create(order));
+    public ResponseEntity<OrderItems> createOrderItem(@RequestBody OrderItemRequest orderItemRequest) {
+        final Products targetProduct = productService.getById(orderItemRequest.getProductId());
+        Orders targetOrder = orderService.getById(orderItemRequest.getOrderId());
+        OrderItems newOrderItem = new OrderItems();
+        newOrderItem.setOrder(targetOrder);
+        newOrderItem.setProduct(targetProduct);
+        newOrderItem.setQuantity(orderItemRequest.getQuantity());
+        return ResponseEntity.ok(orderItemService.create(newOrderItem));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderItems> updateOrderItem(@PathVariable Integer id, @RequestBody OrderItems order) {
+    public ResponseEntity<OrderItems> updateOrderItem(@PathVariable Integer id, @RequestBody OrderItemRequest orderItemRequest) {
         if (id == null || id <= 0) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(orderItemService.update(id, order));
+        final Products targetProduct = productService.getById(orderItemRequest.getProductId());
+        Orders targetOrder = orderService.getById(orderItemRequest.getOrderId());
+        OrderItems newOrderItem = new OrderItems();
+        newOrderItem.setOrder(targetOrder);
+        newOrderItem.setProduct(targetProduct);
+        newOrderItem.setQuantity(orderItemRequest.getQuantity());
+        return ResponseEntity.ok(orderItemService.update(id, newOrderItem));
     }
 
     @DeleteMapping("/{id}")

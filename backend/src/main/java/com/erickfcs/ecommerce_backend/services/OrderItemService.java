@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.erickfcs.ecommerce_backend.models.OrderItems;
 import com.erickfcs.ecommerce_backend.repositories.OrderItemRepository;
-import com.erickfcs.ecommerce_backend.summaries.OrderItemsSummary;
 
 @Service
 public class OrderItemService {
@@ -20,10 +19,6 @@ public class OrderItemService {
 
     public List<OrderItems> getAll() {
         return repo.findAll();
-    }
-
-    public List<OrderItemsSummary> getByOrderId(Integer orderId) {
-        return repo.findByOrderId(orderId);
     }
 
     public OrderItems getById(Integer id) {

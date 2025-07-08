@@ -21,9 +21,9 @@ public class OrderService {
         return repo.findAll();
     }
 
-    public List<Orders> getByUserId(Integer userId) {
-        return repo.findByUserId(userId);
-    }
+    // public List<Orders> getByUserId(Integer userId) {
+    //     return repo.findByUserId(userId);
+    // }
 
     public Orders getById(Integer id) {
         return repo.findById(id).orElse(null);
